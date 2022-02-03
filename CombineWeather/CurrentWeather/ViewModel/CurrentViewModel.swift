@@ -67,15 +67,6 @@ class CurrentViewModel: ObservableObject{
         }).store(in: &cancellableSet)
     }
     
-    
-    //    func setCityName(response: CityAPIResponse){
-    //        self.cityName = response.name
-    //        self.icon = ImageFunctions.chooseSystemPicture(response.weather.first?.icon ?? "")
-    //        self.weatherDescription = response.weather.first?.description ?? ""
-    //        self.temperature = "\(Int(response.main.temp))°"
-    //    }
-    //
-    //
         func setMainInfo(response: APIResponse?){
             guard let response = response else { return }
             self.cityName = response.name
@@ -87,12 +78,11 @@ class CurrentViewModel: ObservableObject{
             self.sunrise = "\(Double(response.sys.sunrise).dateFormatted(withFormat : "HH:mm"))"
             self.sunset = "\(Double(response.sys.sunset).dateFormatted(withFormat : "HH:mm"))"
         }
-    //
+    
         func setHourlyView(response: WeatherResponse?) {
             guard let response = response else { return }
             hourlyData.removeAll()
             for i in 0..<24 {
-//                let hourlyView = HourlyView(response: response.hourly[i])
                 hourlyData.append(HourlyView(response: response.hourly[i]))
             }
         }

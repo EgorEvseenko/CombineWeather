@@ -1,0 +1,27 @@
+{
+  "images" : [
+    {
+      "filename" : "humidity-22-751714.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "humidity-22-751715.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "humidity-22-751716.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "compression-type" : "gpu-optimized-best",
+    "preserves-vector-representation" : true
+  }
+}

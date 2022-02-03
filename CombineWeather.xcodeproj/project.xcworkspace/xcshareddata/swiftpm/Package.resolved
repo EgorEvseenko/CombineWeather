@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CombineReachability",
+        "repositoryURL": "https://github.com/istvan-kreisz/CombineReachability.git",
+        "state": {
+          "branch": "master",
+          "revision": "ba1cb2adeb111ee3ce475404ca1cdfb322505281",
+          "version": null
+        }
+      },
+      {
+        "package": "Reachability",
+        "repositoryURL": "https://github.com/ashleymills/Reachability.swift",
+        "state": {
+          "branch": "master",
+          "revision": "a81b7367f2c46875f29577e03a60c39cdfad0c8d",
+          "version": null
+        }
+      },
+      {
+        "package": "Resolver",
+        "repositoryURL": "https://github.com/hmlongco/Resolver.git",
+        "state": {
+          "branch": null,
+          "revision": "97de0b0320036607564af4a60025b48f8d041221",
+          "version": "1.5.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

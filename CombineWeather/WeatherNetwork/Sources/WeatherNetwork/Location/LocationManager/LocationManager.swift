@@ -8,13 +8,12 @@ import UIKit
 import CoreLocation
 import Combine
 
-
 public class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
+    public let locationManager = CLLocationManager()
     @Published public var locationStatus: CLAuthorizationStatus?
-    @Published public var lastLocation: CLLocation?
+    @Published public var lastLocation: CLLocation = CLLocation(latitude: 0, longitude: 0)
     
-    override init() {
+    public override init() {
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -22,7 +21,7 @@ public class LocationManager: NSObject, ObservableObject, CLLocationManagerDeleg
         locationManager.startUpdatingLocation()
     }
     
-    var statusString: String {
+    public var statusString: String {
         guard let status = locationStatus else {
             return "unknown"
         }

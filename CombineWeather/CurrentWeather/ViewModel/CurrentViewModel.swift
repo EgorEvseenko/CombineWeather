@@ -26,18 +26,21 @@ class CurrentViewModel: ObservableObject{
     @Published var hourlyData: [HourlyView] = []
     @Published var dailyData: [DailyView] = []
     
-    private(set) var authInteractor: InitiateWeatherInteracting
-    private(set) var cancellableSet = Set<AnyCancellable>()
+    var authInteractor: InitiateWeatherInteracting
+    @ObservedObject  var locationManager: LocationManager
+    var cancellableSet = Set<AnyCancellable>()
     
     init(
-        authInteractor: InitiateWeatherInteracting = Resolver.resolve()
+        authInteractor: InitiateWeatherInteracting = Resolver.resolve(),
+        locationManager: LocationManager = LocationManager()
     )
     {
         self.authInteractor = authInteractor
+        self.locationManager = locationManager
     }
     
-     func getMainInfo() {
-        let publisher: AnyPublisher<APIResponse, WError> = authInteractor.getMainInfo()
+    func getMainInfo() {
+        let publisher: AnyPublisher<MainWeatherResponse, WError> = authInteractor.getMainInfo()
         publisher.sink(receiveCompletion: { completion in
             switch completion {
             case .failure(let error):
@@ -46,7 +49,6 @@ class CurrentViewModel: ObservableObject{
                 break
             }
         }, receiveValue: { response in
-            print(response)
             self.setMainInfo(response: response)
         }).store(in: &cancellableSet)
     }
@@ -61,38 +63,37 @@ class CurrentViewModel: ObservableObject{
                 break
             }
         }, receiveValue: { response in
-            print(response)
             self.setHourlyView(response: response)
             self.setDailyView(response: response)
         }).store(in: &cancellableSet)
     }
     
-        func setMainInfo(response: APIResponse?){
-            guard let response = response else { return }
-            self.cityName = response.name
-            self.weatherDescription = response.weather.first?.description ?? ""
-            self.temperature = "\(Int(response.main.temp))°"
-            self.humudity = "\(Int(response.main.humidity)) %"
-            self.pressure = "\(Int(response.main.pressure)) pha"
-            self.icon = ImageFunctions.chooseSystemPicture(response.weather.first?.icon ?? "")
-            self.sunrise = "\(Double(response.sys.sunrise).dateFormatted(withFormat : "HH:mm"))"
-            self.sunset = "\(Double(response.sys.sunset).dateFormatted(withFormat : "HH:mm"))"
-        }
+    private func setMainInfo(response: MainWeatherResponse?){
+        guard let response = response else { return }
+        self.cityName = response.name
+        self.weatherDescription = response.weather.first?.description ?? ""
+        self.temperature = "\(Int(response.main.temp))°"
+        self.humudity = "\(Int(response.main.humidity)) %"
+        self.pressure = "\(Int(response.main.pressure)) pha"
+        self.icon = ImageFunctions.chooseSystemPicture(response.weather.first?.icon ?? "")
+        self.sunrise = "\(Double(response.sys.sunrise).dateFormatted(withFormat : "HH:mm"))"
+        self.sunset = "\(Double(response.sys.sunset).dateFormatted(withFormat : "HH:mm"))"
+    }
     
-        func setHourlyView(response: WeatherResponse?) {
-            guard let response = response else { return }
-            hourlyData.removeAll()
-            for i in 0..<24 {
-                hourlyData.append(HourlyView(response: response.hourly[i]))
-            }
+    private func setHourlyView(response: WeatherResponse?) {
+        guard let response = response else { return }
+        hourlyData.removeAll()
+        for i in 0..<24 {
+            hourlyData.append(HourlyView(response: response.hourly[i]))
         }
+    }
     
-        func setDailyView(response: WeatherResponse?) {
-            guard let response = response else { return }
-            dailyData.removeAll()
-            for i in 0..<response.daily.count {
-                let dailyView = DailyView(response: response.daily[i])
-                dailyData.append(dailyView)
-            }
+    private func setDailyView(response: WeatherResponse?) {
+        guard let response = response else { return }
+        dailyData.removeAll()
+        for i in 0..<response.daily.count {
+            let dailyView = DailyView(response: response.daily[i])
+            dailyData.append(dailyView)
         }
+    }
 }

@@ -20,24 +20,6 @@ public struct HourlyView: Identifiable {
     }
 }
 
-//public struct HourlyView2: Identifiable {
-//    public let id = UUID().uuidString
-//    let hour: HourlyWeather
-//
-//    var date: Double {
-//        return hour.dt
-//    }
-//
-//    var temperature: String {
-//        return "\(Int(hour.temp))°"
-//    }
-//
-//    var icon: String {
-//        return hour.weather.first!.icon
-//    }
-    
-//}
-
 public class DailyView: Identifiable{
     public let id = UUID().uuidString
     public var date: String

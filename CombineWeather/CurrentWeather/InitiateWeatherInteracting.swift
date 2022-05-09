@@ -5,11 +5,11 @@ import WeatherDomain
 import CoreLocation
 
 public protocol InitiateWeatherInteracting {
-    func getMainInfo() -> AnyPublisher<APIResponse, WError>
+    func getMainInfo() -> AnyPublisher<MainWeatherResponse, WError>
     func getWeatherForOneDay() -> AnyPublisher<WeatherResponse, WError>
 }
 
-class InitiateAuthInteractor: InitiateWeatherInteracting {
+class InitiateWeatherInteractor: InitiateWeatherInteracting {
     
     // MARK: - Variables
     private let authUseCase: WeatherUseCaseType
@@ -19,7 +19,7 @@ class InitiateAuthInteractor: InitiateWeatherInteracting {
         self.authUseCase = authUseCase
     }
 
-    func getMainInfo() -> AnyPublisher<APIResponse, WError> {
+    func getMainInfo() -> AnyPublisher<MainWeatherResponse, WError> {
         return authUseCase.getMainInfo()
     }
     

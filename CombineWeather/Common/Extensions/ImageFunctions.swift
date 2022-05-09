@@ -8,7 +8,7 @@
 import UIKit
 
 struct ImageFunctions {
-    static func chooseSystemPicture(_ imageId: String)-> String{
+    static func chooseSystemPicture(_ imageId: String) -> String{
         switch imageId{
         case "01d":
             return "sun.max.fill"

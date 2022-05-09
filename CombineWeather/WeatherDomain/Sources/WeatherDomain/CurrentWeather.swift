@@ -8,27 +8,13 @@
 import Foundation
 
 // MARK: - APIResponse
-public struct APIResponse: Codable, DictionaryEncodable {
-//    public var id = UUID().uuidString
+public struct MainWeatherResponse: Codable {
     public let coord: Coordinate
     public let weather: [Weather]
     public let main: Main
     public let sys: System
     public let name: String
 }
-
-public protocol DictionaryEncodable: Encodable {}
-
-public extension DictionaryEncodable {
-    func toDictionary() -> [String: Any]? {
-        guard let json = try? JSONEncoder().encode(self),
-            let dict = try? JSONSerialization.jsonObject(with: json, options: []) as? [String: Any] else {
-                return nil
-        }
-        return dict
-    }
-}
-
 
 // MARK: - Coord
 public struct Coordinate: Codable {

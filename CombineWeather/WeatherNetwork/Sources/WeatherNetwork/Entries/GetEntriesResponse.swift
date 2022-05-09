@@ -2,9 +2,9 @@ import Foundation
 import WeatherDomain
 
 public struct GetEntriesResponse {
-    public let items: APIResponse
+    public let items: MainWeatherResponse
                        
-    public init(items: APIResponse) {
+    public init(items: MainWeatherResponse) {
         self.items = items
     }
 }
@@ -17,7 +17,7 @@ extension GetEntriesResponse: NetworkResponse {
     public init(from decoder: Decoder) throws {
         let rootContainer = try decoder.singleValueContainer()
         self.init(
-            items: try rootContainer.decode(APIResponse.self)
+            items: try rootContainer.decode(MainWeatherResponse.self)
         )
     }
 }

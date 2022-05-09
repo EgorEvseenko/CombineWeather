@@ -6,7 +6,6 @@ extension Resolver {
     static func registerNetwork() {
         registerCore()
         registerUseCases()
-//        registerTools()
     }
 
     private static func registerCore() {

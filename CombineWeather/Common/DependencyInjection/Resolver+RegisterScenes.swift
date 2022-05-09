@@ -1,10 +1,10 @@
 import Foundation
 import Resolver
+import WeatherNetwork
 
 extension Resolver {
     static func registerScenes() {
         AuthDependencyInjection.register()
-//        PlansDependencyInjection.register()
     }
 }
 
@@ -12,8 +12,8 @@ struct AuthDependencyInjection {
     static func register() {
         Resolver.register { CurrentWeatherView() }
         Resolver.register { CurrentViewModel() }
-        Resolver.register { InitiateAuthInteractor() }
-            .implements(InitiateWeatherInteracting.self)
+        Resolver.register { InitiateWeatherInteractor() }
+        .implements(InitiateWeatherInteracting.self)
     }
 }
 
